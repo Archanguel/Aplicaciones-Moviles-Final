@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Search Pokémon" onChangeText={text => setSearchText(text)} />
+      <TextInput style={ styles.searchBar } placeholder="Search Pokémon" onChangeText={text => setSearchText(text)} />
       <Button title="Search" onPress={() => searchPokemon()}/>
       {pokeData && <Image style={ styles.image } source={{ uri: pokeData.sprites.front_default }} /> }
       <StatusBar style="auto" />
@@ -32,4 +32,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200
   },
+  searchBar: {
+    height: 50,
+    fontSize: 30,
+    justifyContent: 'center',
+    //textAlign: center,
+    //borderColor: rgb(40, 162, 219),
+    borderRadius: 20,
+    //outline: 0,
+    marginBottom: 10,
+  }
 });
