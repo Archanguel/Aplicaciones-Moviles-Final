@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
   searchBar: {
     height: 50,
     fontSize: 30,
-    justifyContent: 'center',
     //textAlign: center,
     //borderColor: rgb(40, 162, 219),
     borderRadius: 20,
