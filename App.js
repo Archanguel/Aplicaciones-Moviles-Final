@@ -31,14 +31,18 @@ export default function App() {
     <ImageBackground source={background}>
       <View style={styles.home}>
         <View style={styles.container}>
-          <Image style={ styles.image } source={require("./imgs/pokemonFinder.png")}/>
+          <View style={ styles.pokecontainer }>
+            <Image style={ styles.img } source={require("./imgs/pokemonFinder.png")}/>
+          </View>
           <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={text => setSearchText(text)} />
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={ styles.btns } /*title="Search"*/ onPress={() => searchPokemon()}> Search </TouchableOpacity>
-            <TouchableOpacity style={ styles.btns } onPress={() => ShowFav()}> {(status==="show") ?  "Hide Fav" : "Show Fav"} </TouchableOpacity>
-            <TouchableOpacity style={ styles.btns } onPress={() => randomPokemon()}> Random </TouchableOpacity>
+            <TouchableOpacity style={ styles.btns } onPress={() => searchPokemon()}><Text style={ styles.btnsTxt } >Search</Text></TouchableOpacity>
+            <TouchableOpacity style={ styles.btns } onPress={() => ShowFav()}><Text style={ styles.btnsTxt } >{(status==="show") ?  "Hide Fav" : "Show Fav"}</Text></TouchableOpacity>
+            <TouchableOpacity style={ styles.btns } onPress={() => randomPokemon()}><Text style={ styles.btnsTxt } >Random</Text></TouchableOpacity>
           </View>
-          {pokeData && <Image style={ styles.image } source={{ uri: pokeData.sprites.front_default }} /> }
+          <View style={ styles.pokecontainer }>
+            {pokeData && <Image style={ styles.pokeimg } source={{ uri: pokeData.sprites.front_default }} /> }
+          </View>
           <StatusBar style="auto" />
         </View>
       </View>
@@ -58,56 +62,28 @@ const styles = StyleSheet.create({
     //backgroundImage: {uri: "./imgs/pokebola.jpg"},
     backgroundSize: "cover",
   },
-  image: {
-    display: "flex",
-    width: 100,
-    height: 100,
-    //backgroundSize: "cover",
-  },
   container: {
     /*flex: 1,
     alignItems: "center",
-    justifyContent: "center",*/
+    justifyContent: "center",
+
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "center",*/
     width: "50%",
   },
-  image: {
-    /*width: 550,
-    height: 100,
-    backgroundColor: 'red',
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",*/
-    
+  img: {
+    /*display: "flex",
+    justifyContent: "center",
+    alignItems: "center",*/
     width: "100%",
     height: "100%",
-    //alignSelf: "center",
     marginBottom: 10,
-  },
-  btnContainer: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    gap: 20,
-    //backgroundColor: "#000000",
-    color: "#ffffff",
-  },
-  btns: {
-    textAlign: "center",
-    color: "white",
-    padding: 10,
-    fontWeight: 600,
-    backgroundColor: "red",
-    border: "none",
-    borderRadius: 6,
-    //transition: "all ease-out 0.3s",
-    width: "30%",
+    borderWidth: 3,
   },
   searchBar: {
     height: 50,
-    fontSize: 30,
+    fontSize: 20,
     textAlign: "center",
     borderColor: "rgb(40, 162, 219)",
     borderRadius: 10,
@@ -115,5 +91,45 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     //outline: 0,
     marginBottom: 10,
-  }
+  },
+  btnContainer: {
+    borderWidth: 3,
+    height: "10%",
+    display: "flex",
+    flexDirection: "row",
+    gap: "5%",
+    //backgroundColor: "#000000",
+    color: "#ffffff",
+  },
+  btns: {
+    borderWidth: 3,
+    justifyContent: "center",
+    backgroundColor: "red",
+    border: "none",
+    borderRadius: 6,
+    //transition: "all ease-out 0.3s",
+    width: "30%",
+  },
+  btnsTxt: {
+    borderWidth: 3,
+    textAlign: "center",
+    color: "white",
+    fontSize: 10,
+    fontWeight: 600,
+  },
+  pokecontainer: {
+    borderWidth: 3,
+    display: "flex",
+    width: "100%",
+    height: "100px",
+  },
+  pokeimg: {
+    borderWidth: 3,
+    /*display: "flex",
+    justifyContent: "center",
+    alignItems: "center",*/
+    width: "100%",
+    height: "100%",
+    backgroundSize: "cover",
+  },
 });
