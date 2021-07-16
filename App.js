@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
 import background from './imgs/pokebola.jpg';
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
     <ImageBackground source={background}>
       <View style={styles.home}>
         <View style={styles.container}>
-          <View style={ styles.pokecontainer }>
+          <View style={ styles.imgContainer }>
             <Image style={ styles.img } source={require("./imgs/pokemonFinder.png")}/>
           </View>
           <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={text => setSearchText(text)} />
@@ -65,18 +65,27 @@ const styles = StyleSheet.create({
   container: {
     /*flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center",*/
 
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",*/
+    justifyContent: "center",
     width: "50%",
+  },
+  imgContainer: {
+    borderWidth: 3,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "100%",
+    height: "100px",
   },
   img: {
     /*display: "flex",
     justifyContent: "center",
-    alignItems: "center",*/
-    width: "100%",
+    alignItems: "center",
+    height: (Dimensions.get('window').height/3) - 12,
+    width: (Dimensions.get('window').width),*/
     height: "100%",
     marginBottom: 10,
     borderWidth: 3,
@@ -120,8 +129,10 @@ const styles = StyleSheet.create({
   pokecontainer: {
     borderWidth: 3,
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     width: "100%",
-    height: "100px",
+    height: "100%",
   },
   pokeimg: {
     borderWidth: 3,
@@ -130,6 +141,5 @@ const styles = StyleSheet.create({
     alignItems: "center",*/
     width: "100%",
     height: "100%",
-    backgroundSize: "cover",
   },
 });
