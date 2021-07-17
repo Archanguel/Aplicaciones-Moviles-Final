@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
-import background from './imgs/pokebola.jpg';
+import background from './src/imgs/pokebola.jpg';
+import pokemonFinder from "./src/imgs/pokemonFinder.png";
 
 export default function App() {
   const [pokeData, setPokeData] = React.useState(null);
@@ -26,13 +27,13 @@ export default function App() {
       setStatus("hide");
     }
   }
-
+//source={require("./imgs/pokemonFinder.png")}
   return (
     <ImageBackground source={background}>
       <View style={styles.home}>
         <View style={styles.container}>
           <View style={ styles.imgContainer }>
-            <Image style={ styles.img } source={require("./imgs/pokemonFinder.png")}/>
+            <Image style={ styles.img } source={pokemonFinder}/>
           </View>
           <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={text => setSearchText(text)} />
           <View style={styles.btnContainer}>
