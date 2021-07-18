@@ -1,14 +1,14 @@
 import React from "react";
-import styled from "styled-components";
-import loadingScreen from "../imgs/loadingimg.gif";
-import errorScreen from "../imgs/snorlax.gif";
-import pokelogo from "../imgs/pokedex4.png";
+//import styled from "styled-components";
+//import loadingScreen from "../../imgs/loadingimg.gif";
+//import errorScreen from "../../imgs/snorlax.gif";
+//import pokelogo from "../../imgs/pokedex4.png";
 import { useHistory } from "react-router";
 
-export const PokeCard = ({ pokemon, addFavorite, favorites, deleteFav }) => {
+export const PokeCard = ({ pokemon, addFavorite, /*favorites,*/ deleteFav }) => {
   const [pokemonData, setPokemonData] = React.useState();
   const history = useHistory();
-  const favoriteNames = favorites.map(favorite => favorite.name);
+  //const favoriteNames = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteNames.includes(pokemonData.name);
   const [status, setStatus] = React.useState("idle");
 
@@ -27,15 +27,18 @@ export const PokeCard = ({ pokemon, addFavorite, favorites, deleteFav }) => {
 
   React.useEffect(() => {
     localStorage.setItem("pokemon", JSON.stringify(pokemon));
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [pokemon, favorites]);
+    //localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [pokemon/*, favorites*/]);
 
   if(status === "idle"){
     return(
-        <></>
+        <>
+
+        </>
     )};
 };
 
+export default PokeCard;
 
 /*return (
     <>

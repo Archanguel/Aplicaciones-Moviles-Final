@@ -1,12 +1,31 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
 import background from './src/imgs/pokebola.jpg';
 import pokemonFinder from "./src/imgs/pokemonFinder.png";
+import {Router, Switch, Route,} from "react-router";
+import asd from "./asd";
+//import Navigator from "./HomeStack";
 
 export default function App() {
   const [pokeData, setPokeData] = React.useState(null);
   const [searchText, setSearchText] = React.useState('');
+  AsyncStorage.setItem("pokemon", searchText);
+  const [status, setStatus] = React.useState("idle");
+
+  React.useEffect(() => {
+    setStatus("loading");
+    fetch(`https://pokeapi.co/api/v2/pokemon/${searchText.toLowerCase()}`)
+        .then( (response) =>  
+          response.json().then(
+            (data) => {
+            setPokemonData(data)
+            setStatus("idle")
+          })
+        )
+        .catch((error) => setStatus("error"));
+  },[searchText])
 
   function searchPokemon(){
     fetch(`https://pokeapi.co/api/v2/pokemon/${searchText.toLowerCase()}`)
@@ -28,7 +47,9 @@ export default function App() {
     }
   }
 //source={require("./imgs/pokemonFinder.png")}
+//    <Navigator/>
   return (
+    <>
     <ImageBackground source={background}>
       <View style={styles.home}>
         <View style={styles.container}>
@@ -48,6 +69,7 @@ export default function App() {
         </View>
       </View>
     </ImageBackground>
+    </>
   );
 }
 
