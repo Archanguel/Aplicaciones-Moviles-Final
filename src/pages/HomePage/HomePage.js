@@ -35,7 +35,7 @@ export const HomePage = ({ setPokemon, favorites, deleteFav }) => {
       setStatus("hide");
     }
   }
-
+//onChangeText={searchText => setSearchText(searchText)}
   return (
     <ImageBackground source={background}>
       <View style={styles.home}>
@@ -43,7 +43,7 @@ export const HomePage = ({ setPokemon, favorites, deleteFav }) => {
           <View style={ styles.imgContainer }>
             <Image style={ styles.img } source={pokemonFinder}/>
           </View>
-          <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={searchText => setSearchText(searchText)} />
+          <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={handleSubmit} /> 
           <View style={styles.btnContainer}>
             <TouchableOpacity style={ styles.btns } onPress={() => handleSearchClick}><Text style={ styles.btnsTxt } >Search</Text></TouchableOpacity>
             <TouchableOpacity style={ styles.btns } onPress={() => ShowFav}><Text style={ styles.btnsTxt } >{(status==="show") ?  "Hide Fav" : "Show Fav"}</Text></TouchableOpacity>

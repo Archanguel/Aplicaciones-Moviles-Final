@@ -27,7 +27,7 @@ export const Router = () => {
     <>
       <Stack.Navigator>
         <Stack.Screen name="card" component={PokeCard} pokemon={pokemon} addFavorite={handleAddFavorite} favorites={favorites} deleteFav={deleteFavorite} />
-        <Stack.Screen name="home" component={HomePage} pokemon={pokemon} addFavorite={handleAddFavorite} favorites={favorites} deleteFav={deleteFavorite} />
+        <Stack.Screen name="home" component={HomePage} setPokemon={handleSetPokemon} favorites={favorites} deleteFav={deleteFavorite} />
       </Stack.Navigator>
     </>
   );
