@@ -105,15 +105,15 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    width: "50%",
+    width: "calc(100% - 50px)",
   },
   imgContainer: {
-    borderWidth: 3,
+    //borderWidth: 3,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     width: "100%",
-    height: "100px",
+    height: "calc(100% - 30px)",
   },
   img: {
     /*display: "flex",
@@ -123,11 +123,11 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('window').width),*/
     height: "100%",
     marginBottom: 10,
-    borderWidth: 3,
+    //borderWidth: 3,
   },
   searchBar: {
     height: 50,
-    fontSize: 20,
+    fontSize: 15,
     textAlign: "center",
     borderColor: "rgb(40, 162, 219)",
     borderRadius: 10,
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   btnContainer: {
-    borderWidth: 3,
-    height: "10%",
+    //borderWidth: 3,
+    height: "50%",
     display: "flex",
     flexDirection: "row",
     gap: "5%",
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
   },
   btns: {
-    borderWidth: 3,
+    //borderWidth: 3,
     justifyContent: "center",
     backgroundColor: "red",
     border: "none",
@@ -155,12 +155,13 @@ const styles = StyleSheet.create({
     width: "30%",
   },
   btnsTxt: {
-    borderWidth: 3,
+    //borderWidth: 3,
     textAlign: "center",
     color: "white",
     fontSize: 10,
     fontWeight: 600,
   },
+  /*
   pokecontainer: {
     borderWidth: 3,
     display: "flex",
@@ -168,13 +169,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
-  },
-  pokeimg: {
+  },pokeimg: {
     borderWidth: 3,
-    /*display: "flex",
+    display: "flex",
     justifyContent: "center",
-    alignItems: "center",*/
+    alignItems: "center",
     width: "100%",
     height: "100%",
-  },
+  },*/
 });

@@ -47,14 +47,14 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route }) => {
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
                                 <View style={ styles.MainSectionBlack } >
-                                    <View style={ styles.MainScreen } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
+                                    <View style={ styles.MainScreen/*, styles.electric*/ } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
                                         <View style={ styles.ScreenHeader }>
                                             <Text style={ styles.PokeName }>{pokemonData.name}</Text>
                                             <Text style={ styles.PokeId }>#{pokemonData.id}</Text>
                                         </View>
 
                                         <View style={ styles.ScreenImage }>
-                                            <Image source={{ uri: pokemonData.sprites.front_default }} style={ styles.PokeFrontimage } alt="front"/>
+                                            <Image source={{ uri: pokemonData.sprites.front_default }} style={ styles.PokeFrontImage } alt="front"/>
                                             <Image source={{ uri: pokemonData.sprites.back_default }} style={ styles.PokeBackImage } alt="back"/>
                                         </View>
 
@@ -110,47 +110,49 @@ const styles = StyleSheet.create({
       width: "200px",
       height: "200px",
     },*/
-    body:{
-        height: "100vh",
-        width: "100vw",
-    },
-
 
     ContainerMainSectionContainer: {
         display: "flex",
-        height: "calc(100% - 50px)",
+        //height: "calc(100% - 50px)",
+        //height: "100vh",
     },
       
     ContainerMainSection : {
-        height: "100%",
+        height: "50vh",
         padding: "25px",
-        width: "500px",
+        width: "100vw",
     },
       
     MainSectionWhite : {
         backgroundColor: "#F9F9F9",
         border: "3px solid black",
         boxShadow: "inset 0 0 3px 3px rgba(0,0,0,.3)",
-        height: "325px",
+        //height: "325px",
+        //height: "50vh",
+        alignItems: "center",
+        justifyContent: "center"
     },
       
     MainSectionBlack : {
         backgroundColor: "#000000",
-        height: "calc(100% - 50px)",
+        height: "calc(100% - 30px)",
+        //height: "100%",
         margin: "25px",
         padding: "10px",
-        width: "calc(100% - 50px)",
+        width: "calc(100% - 30px)",
     },
      
     MainScreen : {
         borderRadius: "15px",
         height: "100%",
-        padding: "15px",
+        padding: "10px",
+        backgroundColor: "blue",
     },
       
     ScreenHeader : {
         alignItems: "center",
         display: "flex",
+        flexDirection: "row",
         justifyContent: "space-between",
     },
       
@@ -175,6 +177,7 @@ const styles = StyleSheet.create({
 
     StatsHeight : {
         color: "#FFFFFF",
+        marginTop: "30px",
     },
     PokeHeight : {
         color: "#FFFFFF",
@@ -200,8 +203,10 @@ const styles = StyleSheet.create({
       
     ScreenDescription : {
         display: "flex",
+        flexDirection: "row",
         height: "100px",
         justifyContent: "space-around",
+        //backgroundColor: "#151515",
     },
       
     ScreenStats : {
@@ -210,9 +215,10 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         display: "flex",
         flexDirection: "column",
-        height: "100%",
-        justifyContent: "space-between",
-        padding: "20px 15px",
+        //height: "100%",
+        //justifyContent: "space-between",
+        //marginTop: "15px",
+        padding: "15px",
     },
       
     StatsTypes : {
