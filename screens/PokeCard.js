@@ -47,7 +47,7 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route }) => {
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
                                 <View style={ styles.MainSectionBlack } >
-                                    <View style={ styles.MainScreen/*, styles.electric*/ } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
+                                    <View style={ styles.MainScreen } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
                                         <View style={ styles.ScreenHeader }>
                                             <Text style={ styles.PokeName }>{pokemonData.name}</Text>
                                             <Text style={ styles.PokeId }>#{pokemonData.id}</Text>
