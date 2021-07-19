@@ -28,7 +28,7 @@ export const Routes = ({}) => {
   
     return(
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
+            <Stack.Navigator screenOptions={{header: () => null}} initialRouteName="Home">
                 <Stack.Screen name="Home" component={Home} /*setPokemon={handleSetPokemon} favorites={favorites} deleteFav={deleteFavorite}*/ />
                 <Stack.Screen name="PokeCard" component={PokeCard} /*pokemon={pokemon} addFavorite={handleAddFavorite} favorites={favorites} deleteFav={deleteFavorite}*/ />
                 <Stack.Screen name="Favorites" component={Favorites} />

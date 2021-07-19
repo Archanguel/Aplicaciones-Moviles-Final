@@ -1,13 +1,15 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import React from "react";
-import { View, Button, StyleSheet, Image, Text  } from "react-native";
+import { View, Button, StyleSheet, Image, Text, TouchableOpacity  } from "react-native";
 //import styled from "styled-components";
-//import loadingScreen from "../../imgs/loadingimg.gif";
-//import errorScreen from "../../imgs/snorlax.gif";
+import loadingScreen from "../src/imgs/loadingimg.gif";
+import errorScreen from "../src/imgs/snorlax.gif";
+import errorScreen2 from "../src/imgs/error404.png";
+import errorScreen3 from "../src/imgs/error404screen.png";
 //import pokelogo from "../../imgs/pokedex4.png";
 //import { useHistory } from "react-router";
 
-export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route }) => {
+export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route, navigation }) => {
     //const [pokeData, setPokeData] = React.useState("pikachu"); //AsyncStorage.getItem("pokemon")
     const [pokemonData, setPokemonData] = React.useState();
     //const history = useHistory();
@@ -41,13 +43,13 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route }) => {
   if(status === "idle"){
     return(
         <>
-            <View>
+            <View style={ styles.Body }>
                 {pokemonData && ( /*<Image style={ styles.pokeimg } source={{ uri: pokemonData.sprites.front_default }} />*/
                     <View style={ styles.ContainerMainSectionContainer }>
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
                                 <View style={ styles.MainSectionBlack } >
-                                    <View style={ styles.MainScreen } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
+                                    <View style={ styles.MainScreen } className={ pokemonData.types[0].type.name } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
                                         <View style={ styles.ScreenHeader }>
                                             <Text style={ styles.PokeName }>{pokemonData.name}</Text>
                                             <Text style={ styles.PokeId }>#{pokemonData.id}</Text>
@@ -76,6 +78,21 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route }) => {
                                 </View>
                             </View>
                         </View>
+
+                          <View style={ styles.RightContainer }>
+
+                            <View style={ styles.RightContainerBlack }>
+                              <View style={ styles.RightContainerScreen }>
+                              {/*favorites.map((favorite, index) => */<View style={ styles.ListItem }/* key={index} onPress={() => deleteFav(favorite.name)}*/><Text>{/*favorite.name*/}  #{/*favorite.id*/} </Text></View>/*)*/}
+                              </View>
+                            </View>
+
+                            <View style={ styles.RightContainerButtons }>
+                              <TouchableOpacity style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFav(pokemonData.name) : () => addFavorite(pokemonData)}*/><Text> ❤️{/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableOpacity>
+                              <TouchableOpacity style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
+                            </View>
+
+                          </View>
                     </View> 
                 )}
             </View>
@@ -83,18 +100,15 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route }) => {
     )} else if(status === "loading") {
         return(
         <>
-        <View>
-
-        </View>
+          <Image source={{ uri: loadingScreen }} style={ styles.loadingImage } alt="Loading Screen"/>
         </>
         );
     }else if(status === "error"){
         return (
-        <>
         <View>
-            <Button className="btnError" onClick={() => navigation.navigation("Home")}>Go To Menu</Button>
+          <Image source={{ uri: errorScreen3 }} style={ styles.errorImage } alt="Error Screen"/>
+          <TouchableOpacity style={ styles.btnError } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
         </View>
-        </>
         );
     };
 };
@@ -110,27 +124,38 @@ const styles = StyleSheet.create({
       width: "200px",
       height: "200px",
     },*/
+    Body : {
+      backgroundColor: "#E71D23",
+      height: "100vh",
+      width: "100vw",
+      display: "flex",
+      flexDirection: "column",
+    },
+
+    /* TOP CONTAINER */
 
     ContainerMainSectionContainer: {
-        display: "flex",
-        //height: "calc(100% - 50px)",
-        //height: "100vh",
+      display: "flex",
+      //height: "calc(100% - 50px)",
+      //height: "100vh",
+      borderWidth: 3,
     },
       
     ContainerMainSection : {
-        height: "50vh",
-        padding: "25px",
-        width: "100vw",
+      height: "50vh",
+      padding: "25px",
+      width: "100vw",
+      borderWidth: 3,
     },
       
     MainSectionWhite : {
-        backgroundColor: "#F9F9F9",
-        border: "3px solid black",
-        boxShadow: "inset 0 0 3px 3px rgba(0,0,0,.3)",
-        //height: "325px",
-        //height: "50vh",
-        alignItems: "center",
-        justifyContent: "center"
+      backgroundColor: "#F9F9F9",
+      border: "3px solid black",
+      boxShadow: "inset 0 0 3px 3px rgba(0,0,0,.3)",
+      //height: "325px",
+      //height: "50vh",
+      alignItems: "center",
+      justifyContent: "center"
     },
       
     MainSectionBlack : {
@@ -316,6 +341,146 @@ const styles = StyleSheet.create({
       fairy : {
         backgroundColor: "#F9AEFF",
       },
+
+    /* BOTTOM CONTAINER */
+
+
+    RightContainer : {
+      //backgroundColor: "#E71D23",
+      //height: "calc(100% - 50px)",
+      //width: "calc(50% - 50px)",
+      //display: "flex",
+
+      padding: "25px",
+      height: "45vh",
+      marginTop: "15px",
+
+      borderWidth: 3,
+    },
+    
+    RightContainerBlack : {
+      backgroundColor: "black",
+      boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
+      //height: "300px",
+      height: "100%",
+      padding: "10px",
+      display: "flex",
+    },
+    
+    RightContainerScreen : {
+      backgroundColor: "#43B0F2",
+      borderRadius: "15px",
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "wrap",
+      height: "100%",
+      padding: "15px 15px 0",
+    },
+    /*
+    RightContainerScreen::-webkit-scrollbar : {
+      width: "2px",
+      height: "10px",
+    },
+    
+    .right-container__screen::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 10px;
+    },
+    
+    .right-container__screen::-webkit-scrollbar-thumb {
+      background: red; 
+      border-radius: 10px;
+    },
+    */
+    ListItem : {
+      alignItems: "center",
+      color: "white",
+      display: "flex",
+      fontSize: "12px",
+      height: "40px",
+      overflowX: "hidden",
+      paddingLeft: "5px",
+      width: "50%",/*width: 100%;*/
+      textTransform: "capitalize",
+    },
+    /*ListItem::before : {
+      content: "❤️",
+    },
+    ListItem:hover::before : {
+      content: "❌",
+    },
+    ListItem:active : {
+      backgroundColor: "#1280f2",
+      color: "white",
+    },*/
+    
+    RightContainerButtons : {
+      display: "flex",
+      justifyContent: "space-around",
+      marginTop: "10px",
+      flexDirection: "row",
+    },
+    
+    LeftButton : {
+      alignItems: "center",
+      backgroundColor: "#DEDEDE",
+      borderRadius: "3px",
+      border: "2px solid black",
+      boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
+      display: "flex",
+      fontWeight: "bold",
+      height: "30px",
+      justifyContent: "center",
+      textTransform: "uppercase",
+      width: "120px",
+    },
+    RightButton : {
+      alignItems: "center",
+      backgroundColor: "#DEDEDE",
+      borderRadius: "3px",
+      border: "2px solid black",
+      boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
+      display: "flex",
+      fontWeight: "bold",
+      height: "30px",
+      justifyContent: "center",
+      textTransform: "uppercase",
+      width: "120px",
+    },
+    
+    /*LeftButton:active : {
+      boxShadow: "inset 0 0 2px 2px rgba(0,0,0,.3)",
+    },
+    RightButton:active : {
+      boxShadow: "inset 0 0 2px 2px rgba(0,0,0,.3)",
+    },*/
+
+    /* LOADING SCREEN */
+
+    loadingImage : {
+      height: "100vh",
+    },
+
+    /* ERROR SCREEN */
+
+    errorImage : {
+      height: "100vh",
+    },
+
+    btnError : {
+      alignSelf:"center",
+      textAlign: "center",
+      justifyContent: "center",
+      fontSize: "30px",
+      backgroundColor:"yellow",
+      borderStyle: "none",
+      height: "50px",
+      width: "200px",
+
+      position: "absolute",
+      top: "66%",
+      borderRadius: "50px",
+    },
 });
 /*return (
     <>
