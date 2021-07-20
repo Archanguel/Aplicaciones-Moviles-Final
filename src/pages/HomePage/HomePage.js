@@ -4,15 +4,16 @@ import { useHistory } from "react-router";
 import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
 import background from '../../imgs/pokebola.jpg';
 import pokemonFinder from "../../imgs/pokemonFinder.png";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const HomePage = ({ setPokemon, favorites, deleteFav }) => {
   const history = useHistory();
   const [status, setStatus] = React.useState("show");
   const [searchText, setSearchText] = React.useState('');
   
-  /*React.useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);*/
+  React.useEffect(() => {
+    AsyncStorage.setItem("favorites", favorites);
+  }, [favorites]);
   
   function handleSearchClick() {
     history.replace("/card");

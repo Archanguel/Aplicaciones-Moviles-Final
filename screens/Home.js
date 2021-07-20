@@ -10,9 +10,12 @@ import pokemonFinder from "../src/imgs/pokemonFinder.png";
 
 export default function App({setPokemon, favorites, deleteFav, navigation}) {
   const [pokeData, setPokeData] = React.useState(null);
-  const [searchText, setSearchText] = React.useState('');
+  const [searchText, setSearchText] = React.useState("");
   const [status, setStatus] = React.useState("idle");
 
+  React.useEffect(() => {
+    AsyncStorage.setItem("favorites", favorites);
+  }, [favorites]);
   /*React.useEffect(() => {
     setStatus("loading");
     fetch(`https://pokeapi.co/api/v2/pokemon/${searchText.toLowerCase()}`)
@@ -36,10 +39,13 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
     AsyncStorage.setItem("pokemon", num);
     navigation.navigate("PokeCard", {pokemon: num});
   }
-  /*function handleSubmit(){
-    setPokemon;
+  
+  /*
+  function handleSubmit(event){
+    event.preventDefault();
+    setPokemon((event.target.value).toLowerCase());
   }
-
+  
   function searchPokemon(){
     fetch(`https://pokeapi.co/api/v2/pokemon/${searchText.toLowerCase()}`)
       .then(response => response.json().then(data => setPokeData(data)))
@@ -62,6 +68,8 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
 //source={require("./imgs/pokemonFinder.png")}
 //    <Navigator/>
 //onChangeText={handleSubmit()}
+
+//text => setSearchText(text)
   return (
     <>
     <ImageBackground source={background}>

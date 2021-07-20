@@ -3,13 +3,13 @@ import React from "react";
 import { View, Button, StyleSheet, Image, Text, TouchableOpacity  } from "react-native";
 //import styled from "styled-components";
 import loadingScreen from "../src/imgs/loadingimg.gif";
-import errorScreen from "../src/imgs/snorlax.gif";
-import errorScreen2 from "../src/imgs/error404.png";
+//import errorScreen from "../src/imgs/snorlax.gif";
+//import errorScreen2 from "../src/imgs/error404.png";
 import errorScreen3 from "../src/imgs/error404screen.png";
 //import pokelogo from "../../imgs/pokedex4.png";
 //import { useHistory } from "react-router";
 
-export const PokeCard = ({ addFavorite, favorites, deleteFav, route, navigation }) => {
+export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route, navigation }) => {
   //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 ));
   const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 ));
   //const history = useHistory();
@@ -55,7 +55,7 @@ export const PokeCard = ({ addFavorite, favorites, deleteFav, route, navigation 
     return(
         <>
             <View style={ styles.Body }>
-                {pokemonData && ( /*<Image style={ styles.pokeimg } source={{ uri: pokemonData.sprites.front_default }} />*/
+                {pokemonData && (
                     <View style={ styles.ContainerMainSectionContainer }>
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
@@ -94,12 +94,12 @@ export const PokeCard = ({ addFavorite, favorites, deleteFav, route, navigation 
 
                           <View style={ styles.RightContainerBlack }>
                             <View style={ styles.RightContainerScreen }>
-                              {/*favorites.map((favorite, index) =>*/ <View style={ styles.ListItem } /*key={index} onPress={() => deleteFavorite(favorite.name)}*/><Text>{/*favorite.name}  #{favorite.id*/} </Text></View>/*)*/}
+                              {/*favorites.map((favorite, index) =>*/ <View style={ styles.ListItem } /*key={index} onPress={() => deleteFavorite(favorite.name)}*/><Text> {/*favorite.name}  #{favorite.id*/} </Text></View>/*)*/}
                             </View>
                           </View>
 
                           <View style={ styles.RightContainerButtons }>
-                            <TouchableOpacity style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFavorite(pokemonData.name) : () => handleAddFavorite(pokemonData)}*/><Text> {/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableOpacity>
+                            <TouchableOpacity style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFavorite(pokemonData.name) : () => handleAddFavorite(pokemonData)}*/><Text> ❤️{/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableOpacity>
                             <TouchableOpacity style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
                           </View>
 
@@ -127,20 +127,10 @@ export const PokeCard = ({ addFavorite, favorites, deleteFav, route, navigation 
 export default PokeCard;
 
 const styles = StyleSheet.create({
-    /*pokeimg: {
-      borderWidth: 3,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "200px",
-      height: "200px",
-    },*/
     Body : {
       backgroundColor: "#E71D23",
       height: "100vh",
       width: "100vw",
-      display: "flex",
-      flexDirection: "column",
     },
 
     ContainerMainSectionContainer: {
@@ -361,15 +351,16 @@ const styles = StyleSheet.create({
       //display: "flex",
 
       padding: "15px",
-      height: "40vh",
+      //height: "40vh",
+      height: "50vh",
       marginTop: "15px",
     },
     
     RightContainerBlack : {
       backgroundColor: "black",
       boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
-      //height: "300px",
-      height: "100%",
+      height: "240px",
+      //height: "100%",
       padding: "10px",
       display: "flex",
     },
@@ -402,7 +393,7 @@ const styles = StyleSheet.create({
     ListItem : {
       alignItems: "center",
       color: "white",
-      display: "flex",
+      //display: "flex",
       fontSize: "12px",
       height: "40px",
       overflowX: "hidden",
@@ -422,7 +413,7 @@ const styles = StyleSheet.create({
     },*/
     
     RightContainerButtons : {
-      display: "flex",
+      //display: "flex",
       justifyContent: "space-around",
       marginTop: "10px",
       flexDirection: "row",
@@ -434,7 +425,7 @@ const styles = StyleSheet.create({
       borderRadius: "3px",
       border: "2px solid black",
       boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
-      display: "flex",
+      //display: "flex",
       fontWeight: "bold",
       height: "30px",
       justifyContent: "center",
@@ -447,7 +438,7 @@ const styles = StyleSheet.create({
       borderRadius: "3px",
       border: "2px solid black",
       boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
-      display: "flex",
+      //display: "flex",
       fontWeight: "bold",
       height: "30px",
       justifyContent: "center",
