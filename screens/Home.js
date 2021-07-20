@@ -27,12 +27,14 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
   },[searchText])*/
 
   function handleSearchClick() {
-    //AsyncStorage.setItem("pokemon", searchText);
+    AsyncStorage.setItem("pokemon", searchText);
     navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase()});
   }
   function handleRandomClick() {
     //setPokemon( Math.floor( Math.random() *  898 ) + 1 );
-    navigation.navigate("PokeCard", {pokemon: ( Math.floor( Math.random() *  898 ) + 1 )});
+    const num = Math.floor( Math.random() *  898 ) + 1;
+    AsyncStorage.setItem("pokemon", num);
+    navigation.navigate("PokeCard", {pokemon: num});
   }
   /*function handleSubmit(){
     setPokemon;

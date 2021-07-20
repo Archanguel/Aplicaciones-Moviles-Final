@@ -9,18 +9,29 @@ import errorScreen3 from "../src/imgs/error404screen.png";
 //import pokelogo from "../../imgs/pokedex4.png";
 //import { useHistory } from "react-router";
 
-export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route, navigation }) => {
-    //const [pokeData, setPokeData] = React.useState("pikachu"); //AsyncStorage.getItem("pokemon")
-    const [pokemonData, setPokemonData] = React.useState();
-    //const history = useHistory();
-    //const favoriteNames = favorites.map(favorite => favorite.name);
-    //const isPokemonAdded = pokemonData && favoriteNames.includes(pokemonData.name);
-    const [status, setStatus] = React.useState("idle");
-    const {pokemon} = route.params;
+export const PokeCard = ({ addFavorite, favorites, deleteFav, route, navigation }) => {
+  //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 ));
+  const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 ));
+  //const history = useHistory();
+  const [status, setStatus] = React.useState("idle");
+  const {pokemon} = route.params;
+
+  //const [favorites, setFavorite] = React.useState(["pikachu"]);
+  //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
+  //const favoritesName = favorites.map(favorite => favorite.name); //((types, index) => <Text style={ styles.PokeTypeOne } key={index}>{types.type.name}</Text>)
+  //const isPokemonAdded = pokemonData && favoritesNames.includes(pokemonData.name);
+
+  /*function handleAddFavorite(pokemon) {
+    setFavorite((oldFavorites) => [...oldFavorites, pokemon]);
+  }
+  function deleteFavorite(pokemonName) {
+    setFavorite(favorites.filter((favorite) => favorite.name !== pokemonName));
+  }*/
+
 
   React.useEffect(() => {
     setStatus("loading");
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`) //AsyncStorage.setItem("pokemon", searchText)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`) //AsyncStorage.getItem("pokemon")
         .then( (response) => response.json().then((data) => {
             setPokemonData(data)
             setStatus("idle")
@@ -35,10 +46,10 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route, navigat
       .catch(error => console.error(error))
   }*/
 
-  //React.useEffect(() => {
-    //AsyncStorage.setItem("pokemon", JSON.stringify(pokemon));
-    //localStorage.setItem("favorites", JSON.stringify(favorites));
-  //}, [pokemon/*, favorites*/]);
+  /*React.useEffect(() => {
+    AsyncStorage.setItem("pokemon", pokemon);
+    AsyncStorage.setItem("favorites", favorites);
+  }, [pokemon, favorites]);*/
 
   if(status === "idle"){
     return(
@@ -49,7 +60,7 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route, navigat
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
                                 <View style={ styles.MainSectionBlack } >
-                                    <View style={ styles.MainScreen } className={ pokemonData.types[0].type.name } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
+                                    <View style={ [styles.MainScreen, styles.normal ] } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
                                         <View style={ styles.ScreenHeader }>
                                             <Text style={ styles.PokeName }>{pokemonData.name}</Text>
                                             <Text style={ styles.PokeId }>#{pokemonData.id}</Text>
@@ -79,20 +90,20 @@ export const PokeCard = ({ addFavorite, /*favorites,*/ deleteFav, route, navigat
                             </View>
                         </View>
 
-                          <View style={ styles.RightContainer }>
+                        <View style={ styles.RightContainer }>
 
-                            <View style={ styles.RightContainerBlack }>
-                              <View style={ styles.RightContainerScreen }>
-                              {/*favorites.map((favorite, index) => */<View style={ styles.ListItem }/* key={index} onPress={() => deleteFav(favorite.name)}*/><Text>{/*favorite.name*/}  #{/*favorite.id*/} </Text></View>/*)*/}
-                              </View>
+                          <View style={ styles.RightContainerBlack }>
+                            <View style={ styles.RightContainerScreen }>
+                              {/*favorites.map((favorite, index) =>*/ <View style={ styles.ListItem } /*key={index} onPress={() => deleteFavorite(favorite.name)}*/><Text>{/*favorite.name}  #{favorite.id*/} </Text></View>/*)*/}
                             </View>
-
-                            <View style={ styles.RightContainerButtons }>
-                              <TouchableOpacity style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFav(pokemonData.name) : () => addFavorite(pokemonData)}*/><Text> ❤️{/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableOpacity>
-                              <TouchableOpacity style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
-                            </View>
-
                           </View>
+
+                          <View style={ styles.RightContainerButtons }>
+                            <TouchableOpacity style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFavorite(pokemonData.name) : () => handleAddFavorite(pokemonData)}*/><Text> {/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableOpacity>
+                            <TouchableOpacity style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
+                          </View>
+
+                        </View>
                     </View> 
                 )}
             </View>
@@ -132,20 +143,18 @@ const styles = StyleSheet.create({
       flexDirection: "column",
     },
 
-    /* TOP CONTAINER */
-
     ContainerMainSectionContainer: {
       display: "flex",
       //height: "calc(100% - 50px)",
       //height: "100vh",
-      borderWidth: 3,
     },
+
+    /* TOP CONTAINER */
       
     ContainerMainSection : {
       height: "50vh",
-      padding: "25px",
+      padding: "15px",
       width: "100vw",
-      borderWidth: 3,
     },
       
     MainSectionWhite : {
@@ -351,11 +360,9 @@ const styles = StyleSheet.create({
       //width: "calc(50% - 50px)",
       //display: "flex",
 
-      padding: "25px",
-      height: "45vh",
+      padding: "15px",
+      height: "40vh",
       marginTop: "15px",
-
-      borderWidth: 3,
     },
     
     RightContainerBlack : {
