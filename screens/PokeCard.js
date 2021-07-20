@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import React from "react";
-import { View, Button, StyleSheet, Image, Text, TouchableOpacity  } from "react-native";
+import { View, Button, StyleSheet, Image, Text, TouchableOpacity, TouchableHighlight, ScrollView  } from "react-native";
 //import styled from "styled-components";
 import loadingScreen from "../src/imgs/loadingimg.gif";
 //import errorScreen from "../src/imgs/snorlax.gif";
@@ -10,8 +10,8 @@ import errorScreen3 from "../src/imgs/error404screen.png";
 //import { useHistory } from "react-router";
 
 export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route, navigation }) => {
-  //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 ));
-  const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 ));
+  //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 )); //AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 )
+  const [pokemonData, setPokemonData] = React.useState("");
   //const history = useHistory();
   const [status, setStatus] = React.useState("idle");
   const {pokemon} = route.params;
@@ -53,8 +53,8 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
 
   if(status === "idle"){
     return(
-        <>
-            <View style={ styles.Body }>
+        <View>
+            <ScrollView style={ styles.Body }>
                 {pokemonData && (
                     <View style={ styles.ContainerMainSectionContainer }>
                         <View style={ styles.ContainerMainSection } >
@@ -99,15 +99,15 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
                           </View>
 
                           <View style={ styles.RightContainerButtons }>
-                            <TouchableOpacity style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFavorite(pokemonData.name) : () => handleAddFavorite(pokemonData)}*/><Text> ❤️{/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableOpacity>
-                            <TouchableOpacity style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
+                            <TouchableHighlight underlayColor="#E71D23" style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFavorite(pokemonData.name) : () => handleAddFavorite(pokemonData)}*/><Text> ❤️{/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableHighlight>
+                            <TouchableHighlight underlayColor="#E71D23" style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableHighlight>
                           </View>
 
                         </View>
                     </View> 
                 )}
-            </View>
-        </>
+            </ScrollView>
+        </View>
     )} else if(status === "loading") {
         return(
         <>
@@ -118,7 +118,7 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
         return (
         <View>
           <Image source={{ uri: errorScreen3 }} style={ styles.errorImage } alt="Error Screen"/>
-          <TouchableOpacity style={ styles.btnError } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableOpacity>
+          <TouchableHighlight underlayColor="blue" style={ styles.btnError } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableHighlight>
         </View>
         );
     };
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
       height: "50vh",
       padding: "15px",
       width: "100vw",
+      flex: 1,
     },
       
     MainSectionWhite : {
@@ -351,9 +352,9 @@ const styles = StyleSheet.create({
       //display: "flex",
 
       padding: "15px",
-      //height: "40vh",
-      height: "50vh",
-      marginTop: "15px",
+      height: "45vh",
+      marginTop: "5px",
+      flex: 1,
     },
     
     RightContainerBlack : {

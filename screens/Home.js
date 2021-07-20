@@ -81,7 +81,7 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
           <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={text => setSearchText(text)} />
           <View style={styles.btnContainer}>
             <TouchableOpacity style={ styles.btns } onPress={() => handleSearchClick()}><Text style={ styles.btnsTxt } >Search</Text></TouchableOpacity>
-            <TouchableOpacity style={ styles.btns } onPress={() => navigation.navigate("NotFound")/*ShowFav()*/}><Text style={ styles.btnsTxt } >{(status==="show") ?  "Hide Fav" : "Show Fav"}</Text></TouchableOpacity>
+            <TouchableOpacity style={ styles.btns } onPress={() => navigation.navigate("Favorites")/*ShowFav()*/}><Text style={ styles.btnsTxt } >{(status==="show") ?  "Hide Fav" : "Show Fav"}</Text></TouchableOpacity>
             <TouchableOpacity style={ styles.btns } onPress={() => handleRandomClick()}><Text style={ styles.btnsTxt } >Random</Text></TouchableOpacity>
           </View>
           <View style={ styles.pokecontainer }>

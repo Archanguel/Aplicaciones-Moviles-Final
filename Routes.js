@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 export const Routes = ({}) => {
     const [pokemon, setPokemon] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 ));
-    const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []); //`${JSON.parse(localStorage.getItem("favorites"))}`
+    const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []); //`${JSON.parse(localStorage.getItem("favorites"))}` // JSON.stringify(
   
     function handleSetPokemon(pokemon) {
       setPokemon(pokemon);
