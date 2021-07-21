@@ -9,12 +9,23 @@ import errorScreen3 from "../src/imgs/error404screen.png";
 //import pokelogo from "../../imgs/pokedex4.png";
 //import { useHistory } from "react-router";
 
-export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route, navigation }) => {
+export const PokeCard = ({ /*pokemon, addFavorite, favorites, deleteFav,*/ route, navigation }) => {
   //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 )); //AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 )
   const [pokemonData, setPokemonData] = React.useState("");
   //const history = useHistory();
   const [status, setStatus] = React.useState("idle");
   const {pokemon} = route.params;
+
+  const [favorites, setFavorites] = React.useState([]);
+  const favoriteName = favorites.map(favorite => favorite.name);
+  const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
+  const addFavorites = (pokemon) => {
+    setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
+    console.log(favorites);
+  };
+  function deleteFavorites() {
+    setFavorites(favorites.filter((favorite) => favorite.name !== pokemonData.name));
+  }
 
   //const [favorites, setFavorite] = React.useState(["pikachu"]);
   //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
@@ -24,8 +35,8 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
   /*function handleAddFavorite(pokemon) {
     setFavorite((oldFavorites) => [...oldFavorites, pokemon]);
   }
-  function deleteFavorite(pokemonName) {
-    setFavorite(favorites.filter((favorite) => favorite.name !== pokemonName));
+  function deleteFavorites(pokemonName) {
+    setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
   }*/
 
 
@@ -46,10 +57,10 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
       .catch(error => console.error(error))
   }*/
 
-  /*React.useEffect(() => {
-    AsyncStorage.setItem("pokemon", pokemon);
-    AsyncStorage.setItem("favorites", favorites);
-  }, [pokemon, favorites]);*/
+  React.useEffect(() => {
+    //AsyncStorage.setItem("pokemon", pokemon);
+    AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   if(status === "idle"){
     return(
@@ -60,7 +71,25 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
                                 <View style={ styles.MainSectionBlack } >
-                                    <View style={ [styles.MainScreen, styles.normal ] } /*className={`main-screen `+pokemonData.types[0].type.name}*/>
+                                    <View style={ [styles.MainScreen, 
+                                      pokemonData.types[0].type.name === "normal" ? styles.normal : 
+                                      pokemonData.types[0].type.name === "fighting" ? styles.fighting : 
+                                      pokemonData.types[0].type.name === "flying" ? styles.flying : 
+                                      pokemonData.types[0].type.name === "poison" ? styles.poison : 
+                                      pokemonData.types[0].type.name === "ground" ? styles.ground : 
+                                      pokemonData.types[0].type.name === "rock" ? styles.rock : 
+                                      pokemonData.types[0].type.name === "bug" ? styles.bug : 
+                                      pokemonData.types[0].type.name === "ghost" ? styles.ghost : 
+                                      pokemonData.types[0].type.name === "steel" ? styles.steel : 
+                                      pokemonData.types[0].type.name === "fire" ? styles.fire : 
+                                      pokemonData.types[0].type.name === "water" ? styles.water : 
+                                      pokemonData.types[0].type.name === "grass" ? styles.grass : 
+                                      pokemonData.types[0].type.name === "electric" ? styles.electric : 
+                                      pokemonData.types[0].type.name === "psychic" ? styles.psychic : 
+                                      pokemonData.types[0].type.name === "ice" ? styles.ice : 
+                                      pokemonData.types[0].type.name === "dragon" ? styles.dragon : 
+                                      pokemonData.types[0].type.name === "dark" ? styles.dark : 
+                                      pokemonData.types[0].type.name === "fairy" ? styles.fairy : ""] }>
                                         <View style={ styles.ScreenHeader }>
                                             <Text style={ styles.PokeName }>{pokemonData.name}</Text>
                                             <Text style={ styles.PokeId }>#{pokemonData.id}</Text>
@@ -94,12 +123,12 @@ export const PokeCard = ({ /*pokemon,*/ addFavorite, favorites, deleteFav, route
 
                           <View style={ styles.RightContainerBlack }>
                             <View style={ styles.RightContainerScreen }>
-                              {/*favorites.map((favorite, index) =>*/ <View style={ styles.ListItem } /*key={index} onPress={() => deleteFavorite(favorite.name)}*/><Text> {/*favorite.name}  #{favorite.id*/} </Text></View>/*)*/}
+                              {favorites.map((favorite, index) => <View style={ styles.ListItem } key={index} onPress={() => deleteFavorites(favorite.name)}><Text> {favorite.name}  #{favorite.id} </Text></View>)}
                             </View>
                           </View>
 
                           <View style={ styles.RightContainerButtons }>
-                            <TouchableHighlight underlayColor="#E71D23" style={ styles.LeftButton } /*onPress={isPokemonAdded ? () => deleteFavorite(pokemonData.name) : () => handleAddFavorite(pokemonData)}*/><Text> ❤️{/*isPokemonAdded ? '❤️' : '🖤'*/} </Text></TouchableHighlight>
+                            <TouchableHighlight underlayColor="#E71D23" style={ styles.LeftButton } onPress={isPokemonAdded ? () => deleteFavorites(pokemonData.name) : () => addFavorites(pokemonData)}><Text> {isPokemonAdded ? '❤️' : '🖤'} </Text></TouchableHighlight>
                             <TouchableHighlight underlayColor="#E71D23" style={ styles.RightButton } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableHighlight>
                           </View>
 

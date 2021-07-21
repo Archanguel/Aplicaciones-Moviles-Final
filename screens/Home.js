@@ -13,9 +13,10 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
   const [searchText, setSearchText] = React.useState("");
   const [status, setStatus] = React.useState("idle");
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     AsyncStorage.setItem("favorites", favorites);
-  }, [favorites]);
+  }, [favorites]);*/
+  
   /*React.useEffect(() => {
     setStatus("loading");
     fetch(`https://pokeapi.co/api/v2/pokemon/${searchText.toLowerCase()}`)
@@ -70,6 +71,9 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
 //onChangeText={handleSubmit()}
 
 //text => setSearchText(text)
+/*<View style={ styles.pokecontainer }>
+    {pokeData && <Image style={ styles.pokeimg } source={{ uri: pokeData.sprites.front_default }} /> }
+  </View>*/
   return (
     <>
     <ImageBackground source={background}>
@@ -83,9 +87,6 @@ export default function App({setPokemon, favorites, deleteFav, navigation}) {
             <TouchableOpacity style={ styles.btns } onPress={() => handleSearchClick()}><Text style={ styles.btnsTxt } >Search</Text></TouchableOpacity>
             <TouchableOpacity style={ styles.btns } onPress={() => navigation.navigate("Favorites")/*ShowFav()*/}><Text style={ styles.btnsTxt } >{(status==="show") ?  "Hide Fav" : "Show Fav"}</Text></TouchableOpacity>
             <TouchableOpacity style={ styles.btns } onPress={() => handleRandomClick()}><Text style={ styles.btnsTxt } >Random</Text></TouchableOpacity>
-          </View>
-          <View style={ styles.pokecontainer }>
-            {pokeData && <Image style={ styles.pokeimg } source={{ uri: pokeData.sprites.front_default }} /> }
           </View>
           <StatusBar style="auto" />
         </View>
