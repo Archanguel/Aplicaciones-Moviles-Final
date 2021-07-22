@@ -1,44 +1,27 @@
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from "react";
 import { View, Button, StyleSheet, Image, Text, TouchableOpacity, TouchableHighlight, ScrollView  } from "react-native";
-//import styled from "styled-components";
 import loadingScreen from "../src/imgs/loadingimg.gif";
 //import errorScreen from "../src/imgs/snorlax.gif";
 //import errorScreen2 from "../src/imgs/error404.png";
 import errorScreen3 from "../src/imgs/error404screen.png";
-//import pokelogo from "../../imgs/pokedex4.png";
-//import { useHistory } from "react-router";
 
-export const PokeCard = ({ /*pokemon, addFavorite, favorites, deleteFav,*/ route, navigation }) => {
+export const PokeCard = ({ route, navigation }) => {
   //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 )); //AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 )
   const [pokemonData, setPokemonData] = React.useState("");
-  //const history = useHistory();
   const [status, setStatus] = React.useState("idle");
-  const {pokemon} = route.params;
+  const {pokemon, favorites, setFavorites} = route.params;
 
-  const [favorites, setFavorites] = React.useState([]);
+  //const [favorites, setFavorites] = React.useState([]); //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
   const favoriteName = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
   const addFavorites = (pokemon) => {
     setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
     console.log(favorites);
   };
-  function deleteFavorites() {
-    setFavorites(favorites.filter((favorite) => favorite.name !== pokemonData.name));
-  }
-
-  //const [favorites, setFavorite] = React.useState(["pikachu"]);
-  //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
-  //const favoritesName = favorites.map(favorite => favorite.name); //((types, index) => <Text style={ styles.PokeTypeOne } key={index}>{types.type.name}</Text>)
-  //const isPokemonAdded = pokemonData && favoritesNames.includes(pokemonData.name);
-
-  /*function handleAddFavorite(pokemon) {
-    setFavorite((oldFavorites) => [...oldFavorites, pokemon]);
-  }
   function deleteFavorites(pokemonName) {
     setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
-  }*/
-
+  }
 
   React.useEffect(() => {
     setStatus("loading");
@@ -49,13 +32,7 @@ export const PokeCard = ({ /*pokemon, addFavorite, favorites, deleteFav,*/ route
           })
         )
         .catch((error) => setStatus("error"));
-  },[pokemon])
-
-  /*function searchPokemon(){
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokeData.toLowerCase()}`)
-      .then(response => response.json().then(data => setPokeData(data)))
-      .catch(error => console.error(error))
-  }*/
+  },[pokemon]);
 
   React.useEffect(() => {
     //AsyncStorage.setItem("pokemon", pokemon);
@@ -147,7 +124,7 @@ export const PokeCard = ({ /*pokemon, addFavorite, favorites, deleteFav,*/ route
         return (
         <View>
           <Image source={{ uri: errorScreen3 }} style={ styles.errorImage } alt="Error Screen"/>
-          <TouchableHighlight underlayColor="blue" style={ styles.btnError } onPress={() => navigation.navigate("Home")}><Text>Go To Menu</Text></TouchableHighlight>
+          <TouchableHighlight underlayColor="blue" style={ styles.btnError } onPress={() => navigation.navigate("Home", {favorites: favorites})}><Text>Go To Menu</Text></TouchableHighlight>
         </View>
         );
     };
@@ -373,7 +350,6 @@ const styles = StyleSheet.create({
 
     /* BOTTOM CONTAINER */
 
-
     RightContainer : {
       //backgroundColor: "#E71D23",
       //height: "calc(100% - 50px)",
@@ -404,22 +380,7 @@ const styles = StyleSheet.create({
       height: "100%",
       padding: "15px 15px 0",
     },
-    /*
-    RightContainerScreen::-webkit-scrollbar : {
-      width: "2px",
-      height: "10px",
-    },
     
-    .right-container__screen::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 5px grey;
-      border-radius: 10px;
-    },
-    
-    .right-container__screen::-webkit-scrollbar-thumb {
-      background: red; 
-      border-radius: 10px;
-    },
-    */
     ListItem : {
       alignItems: "center",
       color: "white",
@@ -431,16 +392,6 @@ const styles = StyleSheet.create({
       width: "50%",/*width: 100%;*/
       textTransform: "capitalize",
     },
-    /*ListItem::before : {
-      content: "❤️",
-    },
-    ListItem:hover::before : {
-      content: "❌",
-    },
-    ListItem:active : {
-      backgroundColor: "#1280f2",
-      color: "white",
-    },*/
     
     RightContainerButtons : {
       //display: "flex",
@@ -475,13 +426,6 @@ const styles = StyleSheet.create({
       textTransform: "uppercase",
       width: "120px",
     },
-    
-    /*LeftButton:active : {
-      boxShadow: "inset 0 0 2px 2px rgba(0,0,0,.3)",
-    },
-    RightButton:active : {
-      boxShadow: "inset 0 0 2px 2px rgba(0,0,0,.3)",
-    },*/
 
     /* LOADING SCREEN */
 
@@ -510,115 +454,3 @@ const styles = StyleSheet.create({
       borderRadius: "50px",
     },
 });
-/*return (
-    <>
-      {pokemonData && (
-        <div className="pokedex">
-          <div className="left-container">
-      
-            <div className="left-container__top-section">
-              <div className="top-section__blue"></div>
-      
-              <div className="top-section__small-buttons">
-                <div className="top-section__red"></div>
-                <div className="top-section__yellow"></div>
-                <div className="top-section__green"></div>
-              </div>
-
-                <img className="pokelogo" src={pokelogo} alt="Pokémon Logo" />
-      
-            </div>
-      
-            <div className="left-container__main-section-container">
-              <div className="left-container__main-section">
-                <div className="main-section__white">
-                  <div className="main-section__black">
-                    <div className={`main-screen `+pokemonData.types[0].type.name}>
-                      <div className="screen__header">
-                        <span className="poke-name">{pokemonData.name}</span>
-                        <span className="poke-id">#{pokemonData.id}</span>
-                      </div>
-
-                      <div className="screen__image">
-                        <img src={pokemonData.sprites.front_default} className="poke-front-image" alt="front"/>
-                        <img src={pokemonData.sprites.back_default} className="poke-back-image" alt="back"/>
-                      </div>
-
-                      <div className="screen__description">
-                        <div className="stats__types">
-                          {pokemonData.types.map((types, index) => <span className="poke-type-one" key={index}>{types.type.name}</span>)}
-                        </div>
-                        <div className="screen__stats">
-                          <p className="stats__weight">
-                            Weight: <span className="poke-weight">{pokemonData.weight}</span>
-                          </p>
-                          <p className="stats__height">
-                            Height: <span className="poke-height">{pokemonData.height}</span>
-                          </p>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-      
-                <div className="left-container__controllers">
-                  <div className="controllers__d-pad">
-                    <div className="d-pad__cell top"></div>
-                    <div className="d-pad__cell left"></div>
-                    <div className="d-pad__cell middle"></div>
-                    <div className="d-pad__cell right"></div>
-                    <div className="d-pad__cell bottom"></div>
-                  </div>
-      
-                  <div className="controllers__buttons">
-                    <div className="buttons__button">B</div>
-                    <div className="buttons__button">A</div>
-                  </div>
-                </div>
-      
-              </div>
-      
-              <div className="left-container__right">
-                <div className="left-container__hinge"></div>
-                <div className="left-container__hinge"></div>
-              </div>
-            </div>
-          </div>
-      
-          <div className="right-container">
-      
-            <div className="right-container__black">
-              <div className="right-container__screen">
-                {favorites.map((favorite, index) => <div className="list-item" key={index} onClick={() => deleteFav(favorite.name)}>{favorite.name}  #{favorite.id} </div>)}
-              </div>
-            </div>
-      
-            <div className="right-container__buttons">
-              <div className="left-button" onClick={isPokemonAdded ? () => deleteFav(pokemonData.name) : () => addFavorite(pokemonData)}> {isPokemonAdded ? '❤️' : '🖤'} </div>
-              <div className="right-button" onClick={() => history.push("./")}>Go To Menu</div>
-            </div>
-      
-          </div>
-        </div>
-      )}
-    </>
-  );
-
-}else if(status === "loading"){
-    return(
-      <>
-      <LoadingImg>
-
-      </LoadingImg>
-      </>
-    );
-}else if(status === "error"){
-    return (
-      <>
-      <ErrorScreen>
-        <button className="btnError" onClick={() => history.push("./")}>Go To Menu</button>
-      </ErrorScreen>
-      </>
-    );
-}*/
