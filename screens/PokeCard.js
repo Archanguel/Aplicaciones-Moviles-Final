@@ -13,6 +13,8 @@ export const PokeCard = ({ route, navigation }) => {
   const {pokemon, favorites, setFavorites} = route.params;
 
   //const [favorites, setFavorites] = React.useState([]); //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
+  
+  
   const favoriteName = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
   const addFavorites = (pokemon) => {

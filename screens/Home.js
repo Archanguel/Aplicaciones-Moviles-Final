@@ -14,19 +14,17 @@ export default function App({/*route,*/ navigation}) {
 
   function handleSearchClick() {
     if (searchText === "") { 
-      if (AsyncStorage.getItem("pokemon")) {
-        navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon"), favorites: favorites, setFavorites});
-      }
+      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon"), favorites: favorites, setFavorites: setFavorites});
       return
     } 
     AsyncStorage.setItem("pokemon", searchText);
-    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase(), favorites: favorites, setFavorites});
+    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase(), favorites: favorites, setFavorites: setFavorites});
   }
   function handleRandomClick() {
     //setPokemon( Math.floor( Math.random() *  898 ) + 1 );
     const num = Math.floor( Math.random() *  898 ) + 1;
     AsyncStorage.setItem("pokemon", num);
-    navigation.navigate("PokeCard", {pokemon: num, favorites: favorites, setFavorites});
+    navigation.navigate("PokeCard", {pokemon: num, favorites: favorites, setFavorites: setFavorites});
   }
 
   function ShowFav(){
