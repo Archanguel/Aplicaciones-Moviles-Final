@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from "@react-native-community/async-storage";
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
@@ -7,26 +8,27 @@ import pokemonFinder from "../src/imgs/pokemonFinder.png";
 
 export default function App({/*route,*/ navigation}) {
   const [searchText, setSearchText] = React.useState("");
-  const [status, setStatus] = React.useState("idle");
+  //const [status, setStatus] = React.useState("idle");
   //const {favorites} = route.params;
-  const [favorites, setFavorites] = React.useState([]);
-
+  //const [favorites, setFavorites] = React.useState([]);
 
   function handleSearchClick() {
     if (searchText === "") { 
-      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon"), favorites: favorites, setFavorites: setFavorites});
+      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon")/*, favorites, setFavorites*/});
       return
     } 
     AsyncStorage.setItem("pokemon", searchText);
-    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase(), favorites: favorites, setFavorites: setFavorites});
+    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase()/*, favorites, setFavorites*/});
   }
+
   function handleRandomClick() {
     //setPokemon( Math.floor( Math.random() *  898 ) + 1 );
     const num = Math.floor( Math.random() *  898 ) + 1;
     AsyncStorage.setItem("pokemon", num);
-    navigation.navigate("PokeCard", {pokemon: num, favorites: favorites, setFavorites: setFavorites});
+    navigation.navigate("PokeCard", {pokemon: num/*, favorites, setFavorites*/});
   }
 
+  /*
   function ShowFav(){
     if(status === "hide"){
       setStatus("show");
@@ -34,10 +36,10 @@ export default function App({/*route,*/ navigation}) {
       setStatus("hide");
     }
   }
-  
-/*<View style={ styles.pokecontainer }>
+  <View style={ styles.pokecontainer }>
     {pokeData && <Image style={ styles.pokeimg } source={{ uri: pokeData.sprites.front_default }} /> }
-  </View>*/
+  </View>
+  */
   return (
     <>
     <ImageBackground source={background}>

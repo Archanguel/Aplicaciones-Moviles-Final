@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from "@react-native-community/async-storage";
 import React from "react";
 import { View, Button, StyleSheet, Image, Text, TouchableOpacity, TouchableHighlight, ScrollView  } from "react-native";
 import loadingScreen from "../src/imgs/loadingimg.gif";
@@ -10,15 +11,16 @@ export const PokeCard = ({ route, navigation }) => {
   //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 )); //AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 )
   const [pokemonData, setPokemonData] = React.useState("");
   const [status, setStatus] = React.useState("idle");
-  const {pokemon, favorites, setFavorites} = route.params;
+  const {pokemon/*, favorites, setFavorites*/} = route.params;
 
-  //const [favorites, setFavorites] = React.useState([]); //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
-  
-  
+  const [favorites, setFavorites] = React.useState([]); //const [favorites, setFavorite] = React.useState(AsyncStorage.getItem("favorites") || []);
+
+
   const favoriteName = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
   const addFavorites = (pokemon) => {
     setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
+    AsyncStorage.setItem("favorites", JSON.stringify(pokemon));
     console.log(favorites);
   };
   function deleteFavorites(pokemonName) {
@@ -36,10 +38,12 @@ export const PokeCard = ({ route, navigation }) => {
         .catch((error) => setStatus("error"));
   },[pokemon]);
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     //AsyncStorage.setItem("pokemon", pokemon);
     AsyncStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
+    console.log(AsyncStorage.getItem("favorites"));
+    console.log(favorites);
+  }, [favorites]);*/
 
   if(status === "idle"){
     return(
