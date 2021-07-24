@@ -50,8 +50,9 @@ export default function Favorites({navigation}) {
                         {/*<TouchableWithoutFeedback source={favbg} style={ styles.image } onPress={() => deleteFavorites(favorite.name)} >
                             <Image source={favorite.sprites.front_default} alt="Favorite Pokémon" />
                         </TouchableWithoutFeedback>*/}
-                        <Image source={favbg} style={ styles.image } onClick={() => deleteFavorites(favorite.name)} source={favorite.sprites.front_default} alt="Favorite Pokémon" />
-
+                        <ImageBackground source={favbg} style={ styles.bkgImage } >
+                            <Image style={ styles.image } onClick={() => deleteFavorites(favorite.name)} source={favorite.sprites.front_default} alt="Favorite Pokémon" />
+                        </ImageBackground>
                         <Text style={ styles.deleteText }>DELETE</Text>
                         <Text>{favorite.name}</Text>
                     </View>)}
@@ -117,16 +118,25 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
       
+    bkgImage : {
+        display: "flex",
+        width: "49px",
+        height: "49px",
+        //background:url("../imgs/favoriteBackground.jpg"),
+        backgroundSize: "49px",
+        //border: "none",
+        borderRadius: "50%",
+        alignSelf: "center",
+        zIndex: "1",
+    },
     image : {
         display: "flex",
         width: "49px",
         height: "49px",
         //background:url("../imgs/favoriteBackground.jpg"),
         backgroundSize: "49px",
-        border: "none",
-        borderRadius: "25px",
         alignSelf: "center",
-        zIndex: "1",
+        zIndex: "2",
     },
       
     deleteText : {
