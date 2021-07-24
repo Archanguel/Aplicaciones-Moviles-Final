@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 //import AsyncStorage from "@react-native-community/async-storage";
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
-import background from '../src/imgs/pokebola.jpg';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { Button, Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity, Dimensions } from "react-native";
+import background from "../src/imgs/pokebola.jpg";
 import pokemonFinder from "../src/imgs/pokemonFinder.png";
 
 export default function App({/*route,*/ navigation}) {
