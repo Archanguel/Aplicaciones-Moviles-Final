@@ -10,22 +10,42 @@ export default function App({/*route,*/ navigation}) {
   const [searchText, setSearchText] = React.useState("");
   //const [status, setStatus] = React.useState("idle");
   //const {favorites} = route.params;
-  //const [favorites, setFavorites] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]);
+
+  //const favoriteName = favorites.map(favorite => favorite.name);
+  //const addFavorites = async (pokemon) => {
+  function addFavorites(pokemon) {
+    setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
+    AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+    console.log(favorites);
+  };
+  //const deleteFavorites = async (pokemonName) => {
+  function deleteFavorites(pokemonName) {
+    setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
+    AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+    console.log(favorites);
+  };
+
+
 
   function handleSearchClick() {
     if (searchText === "") { 
-      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon")/*, favorites, setFavorites*/});
+      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon"), favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites});
       return
     } 
     AsyncStorage.setItem("pokemon", searchText);
-    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase()/*, favorites, setFavorites*/});
+    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase(), favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites});
   }
 
   function handleRandomClick() {
     //setPokemon( Math.floor( Math.random() *  898 ) + 1 );
     const num = Math.floor( Math.random() *  898 ) + 1;
     AsyncStorage.setItem("pokemon", num);
-    navigation.navigate("PokeCard", {pokemon: num/*, favorites, setFavorites*/});
+    navigation.navigate("PokeCard", {pokemon: num, favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites});
+  }
+
+  function handleFavorites() {
+    navigation.navigate("Favorites", {favorites, setFavorites, /*favoriteName,*/ deleteFavorites});
   }
 
   /*
@@ -51,7 +71,7 @@ export default function App({/*route,*/ navigation}) {
           <TextInput style={ styles.searchBar } placeholder="Search a Pokémon" onChangeText={text => setSearchText(text)} />
           <View style={styles.btnContainer}>
             <TouchableOpacity style={ styles.btns } onPress={() => handleSearchClick()}><Text style={ styles.btnsTxt } >Search</Text></TouchableOpacity>
-            <TouchableOpacity style={ styles.btns } onPress={() => navigation.navigate("Favorites")}><Text style={ styles.btnsTxt } >Show Fav</Text></TouchableOpacity>
+            <TouchableOpacity style={ styles.btns } onPress={() => handleFavorites()}><Text style={ styles.btnsTxt } >Show Fav</Text></TouchableOpacity>
             <TouchableOpacity style={ styles.btns } onPress={() => handleRandomClick()}><Text style={ styles.btnsTxt } >Random</Text></TouchableOpacity>
           </View>
           <StatusBar style="auto" />
