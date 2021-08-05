@@ -11,7 +11,8 @@ export const PokeCard = ({ route, navigation }) => {
   //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 )); //AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 )
   const [pokemonData, setPokemonData] = React.useState("");
   const [status, setStatus] = React.useState("idle");
-  const {pokemon, favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites} = route.params;
+  const {pokemon, /*favorites, setFavorites, favoriteName, addFavorites, deleteFavorites*/} = route.params;
+  const [favorites, setFavorites] = React.useState([]);
 
   /*const [favorites, setFavorites] = React.useState(
  [ 
@@ -33,15 +34,19 @@ export const PokeCard = ({ route, navigation }) => {
 
   const favoriteName = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
-  /*const addFavorites = (pokemon) => {
+  const addFavorites = async (pokemon) => {
     //console.log(favorites);
+    const asd = await AsyncStorage.getItem("favorites");
     setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
-    AsyncStorage.setItem("favorites", JSON.stringify(pokemon));
+    const algo = await AsyncStorage.setItem("favorites", JSON.stringify(pokemon));
+    console.log(asd);
+    console.log(algo);
+    console.log(favorites);
   };
   function deleteFavorites(pokemonName) {
     setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
     //console.log(favorites);
-  };*/
+  };
 
   React.useEffect(() => {
     setStatus("loading");
@@ -56,7 +61,17 @@ export const PokeCard = ({ route, navigation }) => {
 
   React.useEffect(() => {
     //AsyncStorage.setItem("pokemon", pokemon);
-    AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+    //AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+    (async ()=>{
+      try{
+        const valor = await AsyncStorage.getItem("favorites");
+        if (valor !== null){
+          console.log(valor)
+        }
+      }catch (error){
+        console.log("error")
+      }
+    })()
     //console.log(AsyncStorage.getItem("favorites"));
     //console.log(favorites);
   }, [favorites]);

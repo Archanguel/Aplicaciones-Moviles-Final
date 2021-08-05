@@ -10,7 +10,7 @@ export default function App({/*route,*/ navigation}) {
   const [searchText, setSearchText] = React.useState("");
   //const [status, setStatus] = React.useState("idle");
   //const {favorites} = route.params;
-  const [favorites, setFavorites] = React.useState([]);
+  /*const [favorites, setFavorites] = React.useState([]);
 
   //const favoriteName = favorites.map(favorite => favorite.name);
   //const addFavorites = async (pokemon) => {
@@ -24,24 +24,24 @@ export default function App({/*route,*/ navigation}) {
     setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
     AsyncStorage.setItem("favorites", JSON.stringify(favorites));
     console.log(favorites);
-  };
+  };*/
 
 
 
   function handleSearchClick() {
     if (searchText === "") { 
-      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon"), favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites});
+      navigation.navigate("PokeCard", {pokemon: AsyncStorage.getItem("pokemon"), /*favorites, setFavorites, favoriteName, addFavorites, deleteFavorites*/});
       return
     } 
     AsyncStorage.setItem("pokemon", searchText);
-    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase(), favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites});
+    navigation.navigate("PokeCard", {pokemon: searchText.toLocaleLowerCase(), /*favorites, setFavorites, favoriteName, addFavorites, deleteFavorites*/});
   }
 
   function handleRandomClick() {
     //setPokemon( Math.floor( Math.random() *  898 ) + 1 );
     const num = Math.floor( Math.random() *  898 ) + 1;
     AsyncStorage.setItem("pokemon", num);
-    navigation.navigate("PokeCard", {pokemon: num, favorites, setFavorites, /*favoriteName,*/ addFavorites, deleteFavorites});
+    navigation.navigate("PokeCard", {pokemon: num, /*favorites, setFavorites, favoriteName, addFavorites, deleteFavorites*/});
   }
 
   function handleFavorites() {
