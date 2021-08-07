@@ -12,21 +12,24 @@ export const PokeCard = ({ route, navigation }) => {
   const [pokemonData, setPokemonData] = React.useState("");
   const [status, setStatus] = React.useState("idle");
   const {pokemon, /*favorites, setFavorites, favoriteName, addFavorites, deleteFavorites*/} = route.params;
-  const [favorites, setFavorites] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([AsyncStorage.getItem("favorites")]);
 
   const favoriteName = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
+
   const addFavorites = async (pokemon) => {
-    //console.log(favorites);
-    const asd = await AsyncStorage.getItem("favorites");
-    setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
-    const algo = await AsyncStorage.setItem("favorites", JSON.stringify(pokemon));
-    console.log(asd);
-    console.log(algo);
+    //setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
+	  //AsyncStorage.setItem("favorites", JSON.stringify(pokemon));
+    try{
+      await setFavorites([pokemon]);
+      await AsyncStorage.setItem("favorites", JSON.stringify([pokemon]));
+    }catch(err){
+      console.log(err);
+    }
     console.log(favorites);
   };
-  function deleteFavorites(pokemonName) {
-    setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
+  const deleteFavorites = async (pokemonName) => {
+    await setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
     //console.log(favorites);
   };
 
@@ -35,13 +38,28 @@ export const PokeCard = ({ route, navigation }) => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`) //AsyncStorage.getItem("pokemon")
         .then( (response) => response.json().then((data) => {
             setPokemonData(data)
+            //setFavorites([favorites]);
+
+
+    try {
+      const favorite = AsyncStorage.getItem("favorites")
+      const favorites = JSON.parse(favorite)
+
+      if(favorites !== null){
+        setFavorites([...favorites])
+      }
+    }catch(e){
+      // error reading value
+    }
+
+
             setStatus("idle")
           })
         )
         .catch((error) => setStatus("error"));
   },[pokemon]);
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     //AsyncStorage.setItem("pokemon", pokemon);
     //AsyncStorage.setItem("favorites", JSON.stringify(favorites));
     (async ()=>{
@@ -56,7 +74,7 @@ export const PokeCard = ({ route, navigation }) => {
     })()
     //console.log(AsyncStorage.getItem("favorites"));
     //console.log(favorites);
-  }, [favorites]);
+  }, [favorites]);*/
 
   if(status === "idle"){
     return(

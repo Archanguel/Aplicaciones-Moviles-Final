@@ -45,7 +45,7 @@ export default function App({/*route,*/ navigation}) {
   }
 
   function handleFavorites() {
-    navigation.navigate("Favorites", {favorites, setFavorites, /*favoriteName,*/ deleteFavorites});
+    navigation.navigate("Favorites", {/*favorites, setFavorites, favoriteName, deleteFavorites*/});
   }
 
   /*

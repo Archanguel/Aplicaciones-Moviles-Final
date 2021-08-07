@@ -7,19 +7,18 @@ import favbg from "../src/imgs/favoriteBackground.jpg";
 export default function Favorites({navigation, route}) {
     //const favorites = AsyncStorage.getItem("favorites");
     
-  const {favorites, setFavorites, /*favoriteName,*/ deleteFavorites} = route.params;
+  const {/*favorites, setFavorites, favoriteName, deleteFavorites*/} = route.params;
   /*const asd = async () => {
     return await AsyncStorage.getItem("favorites");
   }*/
-  //const asd = await AsyncStorage.getItem("favorites");
+  const asd = AsyncStorage.getItem("favorites");
 
-  //const [favorites, setFavorites] = React.useState([]); //AsyncStorage.getItem("favorites") || 
+  const [favorites, setFavorites] = React.useState([]); //AsyncStorage.getItem("favorites") || 
 
-
-  /*function deleteFavorites(pokemonName) {
+  function deleteFavorites(pokemonName) {
     setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
     //console.log(favorites);
-  };*/
+  };
 
     return (
         <ImageBackground source={background}>
