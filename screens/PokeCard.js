@@ -35,7 +35,7 @@ export const PokeCard = ({ route, navigation }) => {
     return(
         <View>
             <ScrollView style={ styles.Body }>
-                {pokemonData && (
+                {!! pokemonData && (
                     <View style={ styles.ContainerMainSectionContainer }>
                         <View style={ styles.ContainerMainSection } >
                             <View style={ styles.MainSectionWhite } >
