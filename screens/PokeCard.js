@@ -1,80 +1,35 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-//import AsyncStorage from "@react-native-community/async-storage";
 import React from "react";
-import { View, Button, StyleSheet, Image, Text, TouchableOpacity, TouchableHighlight, ScrollView, FlatList  } from "react-native";
+import { View, StyleSheet, Image, Text, TouchableHighlight, ScrollView  } from "react-native";
 import loadingScreen from "../src/imgs/loadingimg.gif";
-//import errorScreen from "../src/imgs/snorlax.gif";
-//import errorScreen2 from "../src/imgs/error404.png";
 import errorScreen3 from "../src/imgs/error404screen.png";
 
 export const PokeCard = ({ route, navigation }) => {
-  //const [pokemonData, setPokemonData] = React.useState(AsyncStorage.getItem("pokemon") || ( Math.floor( Math.random() *  898 ) + 1 )); //AsyncStorage.getItem("pokemon") ? "" : ( Math.floor( Math.random() *  898 ) + 1 )
   const [pokemonData, setPokemonData] = React.useState("");
   const [status, setStatus] = React.useState("idle");
-  const {pokemon, /*favorites, setFavorites, favoriteName, addFavorites, deleteFavorites*/} = route.params;
-  const [favorites, setFavorites] = React.useState([AsyncStorage.getItem("favorites")]);
+  const {pokemon } = route.params;
+  const [favorites, setFavorites] = React.useState([]);
 
   const favoriteName = favorites.map(favorite => favorite.name);
   const isPokemonAdded = pokemonData && favoriteName.includes(pokemonData.name);
 
-  const addFavorites = async (pokemon) => {
-    //setFavorites((oldFavorites) => [...oldFavorites, pokemon]);
-	  //AsyncStorage.setItem("favorites", JSON.stringify(pokemon));
-    try{
-      await setFavorites([pokemon]);
-      await AsyncStorage.setItem("favorites", JSON.stringify([pokemon]));
-    }catch(err){
-      console.log(err);
-    }
-    console.log(favorites);
+  function addFavorites(pokemon) {
+    setFavorites((olvFavorites) => [...olvFavorites, pokemon]);
   };
-  const deleteFavorites = async (pokemonName) => {
-    await setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
-    //console.log(favorites);
+
+  function deleteFavorites(pokemonName) {
+    setFavorites(favorites.filter((favorite) => favorite.name !== pokemonName));
   };
 
   React.useEffect(() => {
     setStatus("loading");
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`) //AsyncStorage.getItem("pokemon")
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
         .then( (response) => response.json().then((data) => {
             setPokemonData(data)
-            //setFavorites([favorites]);
-
-
-    try {
-      const favorite = AsyncStorage.getItem("favorites")
-      const favorites = JSON.parse(favorite)
-
-      if(favorites !== null){
-        setFavorites([...favorites])
-      }
-    }catch(e){
-      // error reading value
-    }
-
-
             setStatus("idle")
           })
         )
         .catch((error) => setStatus("error"));
   },[pokemon]);
-
-  /*React.useEffect(() => {
-    //AsyncStorage.setItem("pokemon", pokemon);
-    //AsyncStorage.setItem("favorites", JSON.stringify(favorites));
-    (async ()=>{
-      try{
-        const valor = await AsyncStorage.getItem("favorites");
-        if (valor !== null){
-          console.log(valor)
-        }
-      }catch (error){
-        console.log("error")
-      }
-    })()
-    //console.log(AsyncStorage.getItem("favorites"));
-    //console.log(favorites);
-  }, [favorites]);*/
 
   if(status === "idle"){
     return(
@@ -178,8 +133,6 @@ const styles = StyleSheet.create({
 
     ContainerMainSectionContainer: {
       display: "flex",
-      //height: "calc(100% - 50px)",
-      //height: "100vh",
     },
 
     /* TOP CONTAINER */
@@ -195,8 +148,6 @@ const styles = StyleSheet.create({
       backgroundColor: "#F9F9F9",
       border: "3px solid black",
       boxShadow: "inset 0 0 3px 3px rgba(0,0,0,.3)",
-      //height: "325px",
-      //height: "50vh",
       alignItems: "center",
       justifyContent: "center"
     },
@@ -204,7 +155,6 @@ const styles = StyleSheet.create({
     MainSectionBlack : {
         backgroundColor: "#000000",
         height: "calc(100% - 30px)",
-        //height: "100%",
         margin: "25px",
         padding: "10px",
         width: "calc(100% - 30px)",
@@ -232,7 +182,7 @@ const styles = StyleSheet.create({
     },
     
     PokeId : {
-        color: "#FFFFFF",/* rgba(255, 253, 253, 0.5);*/
+        color: "#FFFFFF",
         fontSize: "20px",
     },
 
@@ -274,7 +224,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height: "100px",
         justifyContent: "space-around",
-        //backgroundColor: "#151515",
     },
       
     ScreenStats : {
@@ -283,9 +232,6 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         display: "flex",
         flexDirection: "column",
-        //height: "100%",
-        //justifyContent: "space-between",
-        //marginTop: "15px",
         padding: "15px",
     },
       
@@ -300,7 +246,6 @@ const styles = StyleSheet.create({
         display: "block",
         marginBottom: "10px",
         padding: "10px",
-        /*text-align: center;*/
         listStyle: "none",
     },
     PokeTypeTwo : {
@@ -309,7 +254,6 @@ const styles = StyleSheet.create({
         display: "block",
         marginBottom: "10px",
         padding: "10px",
-        /*text-align: center;*/
         listStyle: "none",
     },
 
@@ -388,11 +332,6 @@ const styles = StyleSheet.create({
     /* BOTTOM CONTAINER */
 
     RightContainer : {
-      //backgroundColor: "#E71D23",
-      //height: "calc(100% - 50px)",
-      //width: "calc(50% - 50px)",
-      //display: "flex",
-
       padding: "15px",
       height: "45vh",
       marginTop: "5px",
@@ -403,7 +342,6 @@ const styles = StyleSheet.create({
       backgroundColor: "black",
       boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
       height: "240px",
-      //height: "100%",
       padding: "10px",
       display: "flex",
     },
@@ -419,20 +357,13 @@ const styles = StyleSheet.create({
     },
     
     ListItem : {
-      //alignItems: "center",
-      //color: "white",
-      //display: "flex",
       fontSize: "10px",
       height: "25px",
-      //overflowX: "hidden",
-      //overflow: "scroll",
       paddingLeft: "5px",
-      //width: "50%",/*width: 100%;*/
       textTransform: "capitalize",
     },
     
     RightContainerButtons : {
-      //display: "flex",
       justifyContent: "space-around",
       marginTop: "10px",
       flexDirection: "row",
@@ -444,7 +375,6 @@ const styles = StyleSheet.create({
       borderRadius: "3px",
       border: "2px solid black",
       boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
-      //display: "flex",
       fontWeight: "bold",
       height: "30px",
       justifyContent: "center",
@@ -457,7 +387,6 @@ const styles = StyleSheet.create({
       borderRadius: "3px",
       border: "2px solid black",
       boxShadow: "0 0 2px 2px rgba(0,0,0,.3)",
-      //display: "flex",
       fontWeight: "bold",
       height: "30px",
       justifyContent: "center",
