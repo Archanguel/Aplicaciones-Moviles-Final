@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity } from "react-native";
 import background from "../imgs/pokebola.jpg";
-import pokemonFinder from "../imgs/pokemonFinder.png";
+import pokemonFinder from "../imgs/PokemonFinder.png";
 
 export default function App({ navigation}) {
   const [searchText, setSearchText] = React.useState("");
