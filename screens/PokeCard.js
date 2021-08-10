@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, Text, TouchableHighlight, ScrollView  } from "react-native";
-import loadingScreen from "../src/imgs/loadingimg.gif";
-import errorScreen3 from "../src/imgs/error404screen.png";
+import loadingScreen from "../imgs/loadingimg.gif";
+import errorScreen3 from "../imgs/error404screen.png";
 
 export const PokeCard = ({ route, navigation }) => {
   const [pokemonData, setPokemonData] = React.useState("");

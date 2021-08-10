@@ -2,8 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Image, StyleSheet, Text, TextInput, View, ImageBackground, TouchableOpacity } from "react-native";
-import background from "../src/imgs/pokebola.jpg";
-import pokemonFinder from "../src/imgs/pokemonFinder.png";
+import background from "../imgs/pokebola.jpg";
+import pokemonFinder from "../imgs/pokemonFinder.png";
 
 export default function App({ navigation}) {
   const [searchText, setSearchText] = React.useState("");
